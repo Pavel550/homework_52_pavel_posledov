@@ -6,11 +6,11 @@ class TODO(models.Model):
     complete = models.BooleanField(default=False)
     todo_text = models.CharField(max_length=60)
 
-
-
-
     def __str__(self):
         return self.todo_text
+
+
+
 
 
 
