@@ -1,13 +1,19 @@
 from django.db import models
-from django import forms
+
 # Create your models here.
 
-class TODO(models.Model):
-    complete = models.BooleanField(default=False)
-    todo_text = models.CharField(max_length=60)
+
+class TodoList(models.Model):
+
+    title = models.CharField(max_length=50, null=False, blank=False, verbose_name='Заголовок')
+    content = models.TextField(max_length=3000, null=False, blank=False, verbose_name='Контент')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата выполнения ')
+
+
 
     def __str__(self):
-        return self.todo_text
+
+        return f' {self.title}: {self.content}'
 
 
 
@@ -17,8 +23,3 @@ class TODO(models.Model):
 
 
 
-class TODO_FORM(forms.Form):
-    text = forms.CharField(max_length=45, widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'A Django Todo'
-    }))

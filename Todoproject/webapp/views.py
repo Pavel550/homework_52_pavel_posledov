@@ -1,22 +1,35 @@
-from django.shortcuts import render,redirect
-from .models import TODO, TODO_FORM
+from django.shortcuts import render
+from .models import TodoList
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
 def home(request):
-    my_todo = TODO.objects.order_by('id')
-    form = TODO_FORM()
-    context = {'my_todo': my_todo, 'form': form}
+    todo = TodoList.objects.order_by("created_at")
+    context = {"todo": todo}
     return render(request, 'todo_list.html', context)
 
 
 def add_new_todo(request):
-    return None
+    if request.method == "GET":
+        return render(request, "add_todolist.html")
+    else:
+        TodoList.objects.create(
+            title=request.POST.get("title"),
+            content=request.POST.get("content")
+        )
+        return HttpResponseRedirect('/')
 
 
-def complete_todo(request):
-    return None
+
+
+def detail_todo(request):
+    todo_id = request.GET.get("id")
+    todo = TodoList.objects.get(id=todo_id)
+    return render(request, "detail_todo.html", {"todo": todo})
+
 
 
 def delete_todo(request):
-    return None
+    TodoList.objects.filter(complete=True).delete()
+    return HttpResponseRedirect('/')

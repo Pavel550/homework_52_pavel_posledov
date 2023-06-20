@@ -6,12 +6,30 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TODO_LIST</title>
+    <title>Document</title>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
-
 </head>
 <body>
-<h1>Мой список дел!!!</h1>
+
+<h1>Задачи</h1>
+
+<a href="todo/add/">Создать новую задачу</a>
+<br>
+{% for todo in todoes %}
+    <h2>{{ todo.title }}</h2>
+    <p>{{todo.content}}</p>
+{% endfor %}
+
+
+
+
+<a href="todo/?id={{ todo.id }}">Детальный просмотр</a>
+
+
+
+
+
+
 
 </body>
 </html>

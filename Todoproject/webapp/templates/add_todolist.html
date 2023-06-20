@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create_todolist</title>
+</head>
+<body>
+<h1>Добавление очередной задачи</h1>
+
+<form action='/add' method="post">
+    {% csrf_token %}
+    <label>Название</label><br/>
+    <input type="text" name="title"/><br/>
+    <textarea name="content"></textarea><br/>
+    <br/>
+    <input type="submit" value="Подтвердить"/>
+
+</form>
+<a href="/">Назад</a>
+</body>
+</html>
