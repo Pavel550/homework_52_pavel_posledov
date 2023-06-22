@@ -9,12 +9,15 @@
     <title>TODO</title>
 </head>
 <body>
-<div class="card-body">
-    <h3 class="card-title">{{ todo.title }}</h3>
-    <p class="card-text">{{ todo.content }}</p>
-    <p class="card-text">{{ todo.created_at }}</p>
+    <h3 class="card-title">Название:{{ todo.title }}</h3>
+    <h6>Статус:{{ todo.get_status_display }}</h6>
+    <p class="card-text">Описание:{{ todo.description }}</p>
+    <h6>Дата создания:{{ todo.created_date | date:"Y-m-d" }}</h6>
+    <h6>Дата изменения:{{ todo.updated_at | date:"Y-m-d" }}</h6>
+    <h6>Дата завершения:{{ todo.end_date | date:"Y-m-d" }}</h6>
+    <a href="delete/?id={{ todo.id }}"
     <a href="/" class="card-link">Назад</a>
 
-</div>
+
 </body>
 </html>

@@ -8,12 +8,21 @@
 <body>
 <h1>Добавление очередной задачи</h1>
 
-<form action='/add' method="post">
+<form action='' method="post">
     {% csrf_token %}
     <label>Название</label><br/>
     <input type="text" name="title"/><br/>
-    <textarea name="content"></textarea><br/>
+    <select class="form-select" name="status">
+
+        <option value="new">Новая</option>
+        <option value="in_progress">В процессе</option>
+        <option value="done">Сделано</option>
+    </select>
     <br/>
+    <label>Описание:</label><br/>
+    <textarea name="description"></textarea><br/>
+    <label>Дата завершения:</label><br/>
+    <input type="date" name="end_date | Y-m-d"/>
     <input type="submit" value="Подтвердить"/>
 
 </form>
