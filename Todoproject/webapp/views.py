@@ -27,9 +27,8 @@ def add_new_todo(request):
 
 
 
-def detail_todo(request):
-    todo_id = request.GET.get("id")
-    todo = TodoList.objects.get(id=todo_id)
+def detail_todo(request, *args, pk, **kwargs):
+    todo = TodoList.objects.get(id=pk)
     return render(request, "detail_todo.html", {"todo": todo})
 
 
