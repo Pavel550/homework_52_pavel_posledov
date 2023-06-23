@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import TodoList
 from django.http import HttpResponseRedirect
 from datetime import date, datetime
@@ -22,7 +22,7 @@ def add_new_todo(request):
             updated_at=request.POST.get("updated_at"),
             end_date=request.POST.get("end_date".format('d-F-y')),
         )
-        return HttpResponseRedirect('/')
+        return redirect("home")
 
 
 

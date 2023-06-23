@@ -16,7 +16,7 @@
     <h6>Дата изменения:{{ todo.updated_at | date:"Y-m-d" }}</h6>
     <h6>Дата завершения:{{ todo.end_date | date:"Y-m-d" }}</h6>
     <a href="delete/?id={{ todo.id }}"
-    <a href="/" class="card-link">Назад</a>
+    <a href="{% url "home" %}" class="card-link">Назад</a>
 
 
 </body>
