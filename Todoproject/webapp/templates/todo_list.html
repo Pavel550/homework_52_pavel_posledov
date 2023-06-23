@@ -9,6 +9,7 @@
     <h2>Название:{{ todo.title }}</h2>
     <h6>Статус:{{ todo.get_status_display }}</h6>
     <p>Описание:{{todo.description}}</p>
+    <p>Детальное описание:{{ todo.description1 }}</p>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date | date:"d-F-y" }}</h6>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата завершения:{{ todo.end_date | date:"d-F-y"}}</h6>
     <a href="{% url "detail_todo" todo.pk %}">Детальный обзор</a>

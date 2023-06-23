@@ -9,7 +9,7 @@ class TodoAdmin(admin.ModelAdmin):
     list_display_links = ['id', 'title']
     list_filter = ['status']
     search_fields = ['title', 'status']
-    fields = ['title', 'status', 'description', 'end_date']
+    fields = ['title', 'status', 'description', 'description1', 'end_date']
 
 
 
