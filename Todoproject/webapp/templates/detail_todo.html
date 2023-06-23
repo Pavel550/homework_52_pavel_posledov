@@ -1,14 +1,6 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TODO</title>
-</head>
-<body>
+{% extends "base_html.html" %}
+{% block title %}Детальный обзор{% endblock %}
+{% block content %}
     <h3 class="card-title">Название:{{ todo.title }}</h3>
     <h6>Статус:{{ todo.get_status_display }}</h6>
     <p class="card-text">Описание:{{ todo.description }}</p>
@@ -18,6 +10,4 @@
     <a href="delete/?id={{ todo.id }}"
     <a href="{% url "home" %}" class="card-link">Назад</a>
 
-
-</body>
-</html>
+{% endblock %}

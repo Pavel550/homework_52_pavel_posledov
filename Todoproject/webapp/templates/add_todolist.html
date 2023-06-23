@@ -1,11 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>create_todolist</title>
-</head>
-<body>
+{% extends "base_html.html" %}
+{% block title %}Создание{% endblock %}
+{% block content %}
 <h1>Добавление очередной задачи</h1>
 
 <form action='' method="post">
@@ -27,5 +22,4 @@
 
 </form>
 <a href="{% url "home" %}">Назад</a>
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import TodoList
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,Http404
 from datetime import date, datetime
 # Create your views here.
 
@@ -28,7 +28,10 @@ def add_new_todo(request):
 
 
 def detail_todo(request, *args, pk, **kwargs):
-    todo = TodoList.objects.get(id=pk)
+    try:
+        todo = TodoList.objects.get(id=pk)
+    except TodoList.DoesNotExist:
+        raise Http404()
     return render(request, "detail_todo.html", {"todo": todo})
 
 
