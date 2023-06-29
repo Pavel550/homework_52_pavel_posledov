@@ -51,7 +51,9 @@ def todo_update(request, pk):
 
 
 def delete_todo(request, pk):
-    # todo_id = request.GET.get("id")
-    todo = TodoList.objects.get(id=pk)
-    todo.delete()
-    return HttpResponseRedirect('/')
+    todo = get_object_or_404(TodoList,id=pk)
+    if request.method == 'GET':
+        return render(request, 'delete_todo.html', {'todo': todo})
+    elif request.method == 'POST':
+        todo.delete()
+    return redirect('home')
