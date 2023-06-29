@@ -1,4 +1,5 @@
 {% extends "base_html.html" %}
+{% load static %}
 {% block content %}
 
 <h1>Задачи</h1>
@@ -13,7 +14,7 @@
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date | date:"d-F-y" }}</h6>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата завершения:{{ todo.end_date | date:"d-F-y"}}</h6>
     <a href="{% url "detail_todo" todo.pk %}">Детальный обзор</a>
-    <a href="todo/delete/?id={{ todo.id }}">Удалить</a>
+    <a href="{% url "delete_todo" todo.pk %}">remove</a>
 {% endfor %}
 
 

@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import TodoList
 from django.http import HttpResponseRedirect,Http404
-from datetime import date, datetime
+
 # Create your views here.
 
 
@@ -34,10 +34,23 @@ def detail_todo(request, *args, pk, **kwargs):
         raise Http404()
     return render(request, "detail_todo.html", {"todo": todo})
 
+def todo_update(request, pk):
+    todo = get_object_or_404(TodoList, pk=pk)
+    if request.method == "GET":
+        return render(request, "update_todo.html", context={'todo': todo})
+    elif request.method == 'POST':
+        title=request.POST.get("title")
+        status=request.POST.get("status")
+        description=request.POST.get("description")
+        updated_at=request.POST.get("updated_at")
+        end_date=request.POST.get("end_date".format('d-F-y'))
+
+        return redirect("home")
 
 
-def delete_todo(request):
-    todo_id = request.GET.get("id")
-    todo = TodoList.objects.get(id=todo_id)
+
+def delete_todo(request, pk):
+    # todo_id = request.GET.get("id")
+    todo = TodoList.objects.get(id=pk)
     todo.delete()
     return HttpResponseRedirect('/')
