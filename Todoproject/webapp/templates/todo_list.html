@@ -13,8 +13,9 @@
     <p>Детальное описание:{{ todo.description1 }}</p>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date | date:"d-F-y" }}</h6>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата завершения:{{ todo.end_date | date:"d-F-y"}}</h6>
-    <a href="{% url "detail_todo" todo.pk %}">Детальный обзор</a>
-    <a href="{% url "delete_todo" todo.pk %}">remove</a>
+    <a href="{% url "detail_todo" todo.pk %}">Детальный обзор</a><br/>
+    <a href="{% url "delete_todo" todo.pk %}">remove</a>,<br/>
+    <a href="{% url "todo_update" todo.pk %}">Редактирование</a><br/>
 {% endfor %}
 
 

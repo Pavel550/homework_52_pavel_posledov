@@ -39,11 +39,12 @@ def todo_update(request, pk):
     if request.method == "GET":
         return render(request, "update_todo.html", context={'todo': todo})
     elif request.method == 'POST':
-        title=request.POST.get("title")
-        status=request.POST.get("status")
-        description=request.POST.get("description")
-        updated_at=request.POST.get("updated_at")
-        end_date=request.POST.get("end_date".format('d-F-y'))
+        todo.title=request.POST.get("title")
+        todo.status=request.POST.get("status")
+        todo.description=request.POST.get("description")
+        todo.updated_at=request.POST.get("updated_at")
+        todo.end_date=request.POST.get("end_date".format('d-F-y'))
+        todo.save()
 
         return redirect("home")
 

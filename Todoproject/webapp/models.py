@@ -9,7 +9,6 @@ class TodoList(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name='Название')
     status = models.TextField(verbose_name='Статус', null=True, blank=True, choices=status_choices, default=status_choices[0][1])
     description = models.TextField(max_length=200, null=True, blank=True, verbose_name='Описание')
-    description1 = models.TextField(max_length=500, null=True, blank=True, verbose_name='Подробное описание')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     end_date = models.DateField(default=None, null=True, blank=True, verbose_name='Дата завершения')
     updated_at = models.DateField(auto_now=True, verbose_name='Дата изменения ')
