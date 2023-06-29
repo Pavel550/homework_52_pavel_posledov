@@ -1,0 +1,19 @@
+<form action="" method="post">
+{% csrf_token %}
+    <label>Название</label><br/>
+    <input type="text" name="title" value="{{ todo.title }}"/><br/>
+    <select class="form-select" name="status" >
+
+        <option value="new">Новая</option>
+        <option value="in_progress">В процессе</option>
+        <option value="done">Сделано</option>
+    </select>
+    <br/>
+    <label>Описание:</label><br/>
+    <textarea name="description">{{ todo.description }}</textarea><br/>
+    <label>Дата редактирования</label>
+    <input type="date" name="updated_at | Y-m-d"/>
+    <label>Дата завершения:</label><br/>
+    <input type="date" name="end_date | Y-m-d"/>
+ <input type="submit" value="{{ button_text }}"/>
+</form>
