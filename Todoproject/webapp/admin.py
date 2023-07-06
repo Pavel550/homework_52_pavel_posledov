@@ -5,11 +5,11 @@ from .models import TodoList
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'status', 'created_date', 'end_date']
+    list_display = ['id', 'title', 'status', 'type_todo', 'created_date', 'updated_at']
     list_display_links = ['id', 'title']
-    list_filter = ['status']
-    search_fields = ['title', 'status']
-    fields = ['title', 'status', 'description', 'end_date']
+    list_filter = ['status', 'type_todo']
+    search_fields = ['title', 'status', 'type_todo']
+    fields = ['title', 'status', 'type_todo', 'description', 'short_description', 'updated_at']
 
 
 
