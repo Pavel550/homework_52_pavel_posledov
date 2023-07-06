@@ -1,0 +1,109 @@
+[
+{
+  "model": "webapp.statustodo",
+  "pk": 1,
+  "fields": {
+    "title": "новый"
+  }
+},
+{
+  "model": "webapp.statustodo",
+  "pk": 2,
+  "fields": {
+    "title": "в процессе"
+  }
+},
+{
+  "model": "webapp.statustodo",
+  "pk": 3,
+  "fields": {
+    "title": "выполнено"
+  }
+},
+{
+  "model": "webapp.typetodo",
+  "pk": 1,
+  "fields": {
+    "title": "задача"
+  }
+},
+{
+  "model": "webapp.typetodo",
+  "pk": 2,
+  "fields": {
+    "title": "ошибка"
+  }
+},
+{
+  "model": "webapp.typetodo",
+  "pk": 3,
+  "fields": {
+    "title": "улучшение"
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 1,
+  "fields": {
+    "title": "Сходить в магазин",
+    "status": 1,
+    "type_todo": 2,
+    "short_description": "Заголовок",
+    "description": "нужно сходить в магазин купить продукты",
+    "created_date": "2023-07-06T17:04:51.832Z",
+    "updated_at": "2023-07-06T17:04:51.832Z"
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 2,
+  "fields": {
+    "title": "Сходить в кино",
+    "status": 3,
+    "type_todo": 1,
+    "short_description": "Заголовок",
+    "description": "необходимо сходить в кино посмотреть новый фильм который вышел в кинотеатре",
+    "created_date": "2023-07-06T17:06:13.524Z",
+    "updated_at": "2023-07-06T17:06:13.524Z"
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 3,
+  "fields": {
+    "title": "сделать домашнее задание",
+    "status": 2,
+    "type_todo": 3,
+    "short_description": "Заголовок",
+    "description": "выполнить домашнее задание по учебе",
+    "created_date": "2023-07-06T17:07:45.469Z",
+    "updated_at": "2023-07-06T17:07:45.469Z"
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 4,
+  "fields": {
+    "title": "по играть в компьютерные игры",
+    "status": 1,
+    "type_todo": 1,
+    "short_description": "Заголовок",
+    "description": "поиграть в какие нибудь новые или старые компьютерные игры",
+    "created_date": "2023-07-06T17:10:06.372Z",
+    "updated_at": "2023-07-06T17:10:06.372Z"
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 5,
+  "fields": {
+    "title": "пробежать дистанцию в 10 км",
+    "status": 3,
+    "type_todo": 1,
+    "short_description": "Заголовок",
+    "description": "заняться спортом,улучшить бег да и следить за своим здоровьем",
+    "created_date": "2023-07-06T17:12:06.873Z",
+    "updated_at": "2023-07-06T17:12:06.873Z"
+  }
+}
+]
