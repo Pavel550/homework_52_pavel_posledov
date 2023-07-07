@@ -2,13 +2,13 @@
 {% block title %}Детальный обзор{% endblock %}
 {% block content %}
     <h3 class="card-title">Название:{{ todo.title }}</h3>
-    <h6>Статус:{{ todo.get_status_display }}</h6>
+    <h6>Статус:{{ todo.status.title }}</h6>
+    <h6>Тип:{{ todo.type_todo.title }}</h6>
+    <p class="card-text">Заголовок:{{ todo.short_description }}</p>
     <p class="card-text">Описание:{{ todo.description }}</p>
-    <p>Детальное описание:{{ todo.description1 }}</p>
     <h6>Дата создания:{{ todo.created_date | date:"Y-m-d" }}</h6>
     <h6>Дата изменения:{{ todo.updated_at | date:"Y-m-d" }}</h6>
-    <h6>Дата завершения:{{ todo.end_date | date:"Y-m-d" }}</h6>
-    <a href="{% url "delete_todo" todo.pk %}">Удалить</a>
-    <a href="{% url "home" %}" class="card-link">Назад</a>
+    <a href="{% url "delete_todo" todo.pk %}"><button>Удалить</button></a>
+    <a href="{% url "home" %}" class="card-link"><button>На Главную</button></a>
 
 {% endblock %}

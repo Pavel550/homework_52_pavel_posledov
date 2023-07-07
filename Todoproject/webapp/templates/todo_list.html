@@ -4,18 +4,19 @@
 
 <h1>Задачи</h1>
 
-<a href="{% url "add_todo" %}">Создать новую задачу</a>
+<a href="{% url "add_todo" %}"><button>Создать новую задачу</button></a>
 <br>
 {% for todo in todos %}
     <h2>Название:{{ todo.title }}</h2>
-    <h6>Статус:{{ todo.get_status_display }}</h6>
-    <p>Описание:{{todo.description}}</p>
-    <p>Детальное описание:{{ todo.description1 }}</p>
+    <h6>Статус:{{ todo.status.title }}</h6>
+    <h6>Тип:{{ todo.type_todo.title }}</h6>
+    <p>Заголовок:{{todo.short_description}}</p>
+    <p>Детальное описание:{{ todo.description }}</p>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date | date:"d-F-y" }}</h6>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Дата завершения:{{ todo.end_date | date:"d-F-y"}}</h6>
-    <a href="{% url "detail_todo" todo.pk %}">Детальный обзор</a><br/>
-    <a href="{% url "delete_todo" todo.pk %}">Удалить</a>,<br/>
-    <a href="{% url "todo_update" todo.pk %}">Редактирование</a><br/>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Дата изменениия:{{ todo.updated_at | date:"d-F-y"}}</h6>
+    <a href="{% url "detail_todo" todo.pk %}"><button>Детальный Обзор</button></a><br/>
+    <a href="{% url "delete_todo" todo.pk %}"><button>Удалить</button></a>,<br/>
+    <a href="{% url "todo_update" todo.pk %}"><button>Редактирование</button></a><br/>
 {% endfor %}
 
 

@@ -5,11 +5,15 @@ from django.db import models
 
 
 class StatusTodo(models.Model):
-    title = models.CharField(max_length=50, null=False, blank=False,default="title", verbose_name='Статус')
-
+    title = models.CharField(max_length=50, null=False, blank=False, verbose_name='Статус')
+    def __str__(self):
+        return self.title
 
 class TypeTodo(models.Model):
-    title = models.CharField(max_length=50, null=False, blank=False,default="title", verbose_name='Тип')
+    title = models.CharField(max_length=50, null=False, blank=False, verbose_name='Тип')
+
+    def __str__(self):
+        return self.title
 
 
 class TodoList(models.Model):

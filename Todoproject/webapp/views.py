@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import TodoList
+from .forms import TodoForm
 from django.http import HttpResponseRedirect,Http404
 
 # Create your views here.
@@ -13,16 +14,26 @@ def home(request):
 
 def add_new_todo(request):
     if request.method == "GET":
-        return render(request, "add_todolist.html")
-    else:
-        TodoList.objects.create(
-            title=request.POST.get("title"),
-            status=request.POST.get("status"),
-            description=request.POST.get("description"),
-            updated_at=request.POST.get("updated_at"),
-            end_date=request.POST.get("end_date".format('d-F-y')),
-        )
-        return redirect("home")
+        form = TodoForm()
+        return render(request, "add_todolist.html", {'form': form})
+    elif request.method == "POST":
+        form = TodoForm(data=request.POST)
+        if form.is_valid():
+            todo = TodoList(
+                title=form.cleaned_data.get('title'),
+                status=form.cleaned_data.get('status'),
+                type_todo=form.cleaned_data.get('type_todo'),
+                short_description=form.cleaned_data.get('short_description'),
+                description=form.cleaned_data.get('description'),
+                created_date=form.cleaned_data.get('created_date'),
+                updated_at=form.cleaned_data.get('updated_at')
+
+
+            )
+            todo.save()
+            return redirect('home')
+        else:
+            return redirect(request, "add_todolist.html", {'form':form})
 
 
 
@@ -35,18 +46,28 @@ def detail_todo(request, *args, pk, **kwargs):
     return render(request, "detail_todo.html", {"todo": todo})
 
 def todo_update(request, pk):
-    todo = get_object_or_404(TodoList, pk=pk)
+    todo = get_object_or_404(TodoList, id=pk)
+    form = TodoForm(initial={
+        "title": todo.title,
+        "status": todo.status,
+        "type_todo": todo.type_todo,
+        "short_description": todo.short_description,
+        "description": todo.description
+    })
     if request.method == "GET":
-        return render(request, "update_todo.html", context={'todo': todo})
+        return render(request, "update_todo.html", {'form': form})
     elif request.method == 'POST':
-        todo.title=request.POST.get("title")
-        todo.status=request.POST.get("status")
-        todo.description=request.POST.get("description")
-        todo.updated_at=request.POST.get("updated_at")
-        todo.end_date=request.POST.get("end_date".format('d-F-y'))
-        todo.save()
-
-        return redirect("home")
+        form = TodoForm(data=request.POST)
+        if form.is_valid():
+            todo.title=form.cleaned_data.get("title")
+            todo.status=form.cleaned_data.get("status")
+            todo.type_todo=form.cleaned_data.get("type_todo")
+            todo.short_description=form.cleaned_data.get("short_description")
+            todo.description=form.cleaned_data.get("description")
+            todo.save()
+            return redirect('home')
+        else:
+            return render(request, "update_todo.html", {'form': form})
 
 
 
