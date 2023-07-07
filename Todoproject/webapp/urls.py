@@ -1,12 +1,12 @@
 from django.urls import path
 from . import views
-
-
+from django.views.generic import RedirectView
+from views import TodoCreateView,TodoDetailView,TodoListWiew
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('todo/add/', views.add_new_todo, name='add_todo'),
-    path('todo/<int:pk>/', views.detail_todo, name='detail_todo'),
-    path('todo/<int:pk>/delete', views.delete_todo, name = 'delete_todo'),
+    path('', TodoListWiew.as_view(), name='home'),
+    path('todo/add/', TodoCreateView.as_view(), name='add_todo'),
+    path('todo/<int:pk>/', TodoDetailView.as_view(), name='detail_todo'),
+    path('todo/<int:pk>/delete', views.delete_todo_, name = 'delete_todo'),
     path('todo/<int:pk>/update', views.todo_update, name='todo_update'),
 
 ]

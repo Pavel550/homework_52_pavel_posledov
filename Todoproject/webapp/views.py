@@ -2,79 +2,75 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import TodoList
 from .forms import TodoForm
 from django.http import HttpResponseRedirect,Http404
+from django.views.generic import TemplateView,View
 
 # Create your views here.
+class TodoListWiew(View):
+    def get(self, request, *args, **kwargs):
 
+        todos = TodoList.objects.order_by("-created_date")
+        context = {"todos": todos}
+        return render(request, 'todo_list.html', context)
 
-def home(request):
-    todos = TodoList.objects.order_by("-created_date")
-    context = {"todos": todos}
-    return render(request, 'todo_list.html', context)
-
-
-def add_new_todo(request):
-    if request.method == "GET":
+class TodoCreateView(View):
+    def get(self, request, *args, **kwargs):
         form = TodoForm()
         return render(request, "add_todolist.html", {'form': form})
-    elif request.method == "POST":
-        form = TodoForm(data=request.POST)
-        if form.is_valid():
-            todo = TodoList(
-                title=form.cleaned_data.get('title'),
-                status=form.cleaned_data.get('status'),
-                type_todo=form.cleaned_data.get('type_todo'),
-                short_description=form.cleaned_data.get('short_description'),
-                description=form.cleaned_data.get('description'),
-                created_date=form.cleaned_data.get('created_date'),
-                updated_at=form.cleaned_data.get('updated_at')
+    def post(self,request, *args, **kwargs):
+            form = TodoForm(data=request.POST)
+            if form.is_valid():
+                type_todo = form.cleaned_data.pop("type_todo")
+                todo = TodoList.objects.create(
+                    title=form.cleaned_data.get('title'),
+                    status=form.cleaned_data.get('status'),
+                    type_todo=form.cleaned_data.get('type_todo'),
+                    short_description=form.cleaned_data.get('short_description'),
+                    description=form.cleaned_data.get('description'),)
+                todo.type_todo.set(type_todo)
+                return redirect('home')
+            else:
+                return redirect(request, "add_todolist.html", {'form':form})
 
-
-            )
-            todo.save()
-            return redirect('home')
-        else:
-            return redirect(request, "add_todolist.html", {'form':form})
-
-
-
-
-def detail_todo(request, *args, pk, **kwargs):
-    try:
-        todo = TodoList.objects.get(id=pk)
-    except TodoList.DoesNotExist:
-        raise Http404()
-    return render(request, "detail_todo.html", {"todo": todo})
-
-def todo_update(request, pk):
-    todo = get_object_or_404(TodoList, id=pk)
-    form = TodoForm(initial={
-        "title": todo.title,
-        "status": todo.status,
-        "type_todo": todo.type_todo,
-        "short_description": todo.short_description,
-        "description": todo.description
-    })
-    if request.method == "GET":
+    def todo_update_get(self,request, *args,**kwargs):
+        todo = get_object_or_404(TodoList, id=kwargs)
+        form = TodoForm(initial={
+            "title": todo.title,
+            "status": todo.status,
+            "type_todo": todo.type_todo,
+            "short_description": todo.short_description,
+            "description": todo.description
+        })
         return render(request, "update_todo.html", {'form': form})
-    elif request.method == 'POST':
-        form = TodoForm(data=request.POST)
-        if form.is_valid():
-            todo.title=form.cleaned_data.get("title")
-            todo.status=form.cleaned_data.get("status")
-            todo.type_todo=form.cleaned_data.get("type_todo")
-            todo.short_description=form.cleaned_data.get("short_description")
-            todo.description=form.cleaned_data.get("description")
-            todo.save()
-            return redirect('home')
-        else:
-            return render(request, "update_todo.html", {'form': form})
+
+    def todo_update_post(self,request,*args,**kwargs):
+            todo = get_object_or_404(TodoList, id=kwargs)
+            form = TodoForm(data=request.POST)
+            if form.is_valid():
+                type_todo = form.cleaned_data.pop("type_todo")
+                todo.title=form.cleaned_data.get("title")
+                todo.status=form.cleaned_data.get("status")
+                todo.type_todo=form.cleaned_data.get("type_todo")
+                todo.short_description=form.cleaned_data.get("short_description")
+                todo.description=form.cleaned_data.get("description")
+                todo.save()
+                return redirect('home')
+            else:
+                return render(request, "update_todo.html", {'form': form})
 
 
 
-def delete_todo(request, pk):
-    todo = get_object_or_404(TodoList,id=pk)
-    if request.method == 'GET':
+    def delete_todo_get(request, pk):
+        todo = get_object_or_404(TodoList,id=pk)
         return render(request, 'delete_todo.html', {'todo': todo})
-    elif request.method == 'POST':
+    def delete_todo_post(self,request,*args,**kwargs):
+        todo = get_object_or_404(TodoList, id=kwargs)
         todo.delete()
-    return redirect('home')
+        return redirect('home')
+
+class TodoDetailView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["todo"] = get_object_or_404(TodoList, id=kwargs['pk'])
+        return context
+    def get_template_names(self):
+        return "detail_todo"
