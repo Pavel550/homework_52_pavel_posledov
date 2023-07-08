@@ -3,5 +3,5 @@
 <h1>Редактирование</h1>
 {% block content %}
     {% include "partial/todo_form.html" with button_text="Редактировать" %}
-
+    <a href="{% url 'home'  %}"><button>На Главную</button></a>
 {% endblock %}

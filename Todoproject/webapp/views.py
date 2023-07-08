@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect,Http404
 from django.views.generic import TemplateView,View
 
 # Create your views here.
-class TodoListWiew(View):
+class TodoListWiew(TemplateView):
     def get(self, request, *args, **kwargs):
 
         todos = TodoList.objects.order_by("-created_date")
@@ -19,20 +19,19 @@ class TodoCreateView(View):
     def post(self,request, *args, **kwargs):
             form = TodoForm(data=request.POST)
             if form.is_valid():
-                type_todo = form.cleaned_data.pop("type_todo")
                 todo = TodoList.objects.create(
                     title=form.cleaned_data.get('title'),
                     status=form.cleaned_data.get('status'),
                     type_todo=form.cleaned_data.get('type_todo'),
                     short_description=form.cleaned_data.get('short_description'),
                     description=form.cleaned_data.get('description'),)
-                todo.type_todo.set(type_todo)
+                todo.save()
                 return redirect('home')
             else:
                 return redirect(request, "add_todolist.html", {'form':form})
-
-    def todo_update_get(self,request, *args,**kwargs):
-        todo = get_object_or_404(TodoList, id=kwargs)
+class TodoUpdateView(View):
+    def get(self,request, *args,**kwargs):
+        todo = get_object_or_404(TodoList, id=kwargs['pk'])
         form = TodoForm(initial={
             "title": todo.title,
             "status": todo.status,
@@ -42,11 +41,10 @@ class TodoCreateView(View):
         })
         return render(request, "update_todo.html", {'form': form})
 
-    def todo_update_post(self,request,*args,**kwargs):
-            todo = get_object_or_404(TodoList, id=kwargs)
+    def post(self,request,*args,**kwargs):
+            todo = get_object_or_404(TodoList, id=kwargs['pk'])
             form = TodoForm(data=request.POST)
             if form.is_valid():
-                type_todo = form.cleaned_data.pop("type_todo")
                 todo.title=form.cleaned_data.get("title")
                 todo.status=form.cleaned_data.get("status")
                 todo.type_todo=form.cleaned_data.get("type_todo")
@@ -57,15 +55,21 @@ class TodoCreateView(View):
             else:
                 return render(request, "update_todo.html", {'form': form})
 
+class TodoDeleteView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        todo = get_object_or_404(TodoList, id=kwargs['pk'])
+        return render(request, "delete_todo.html", {"todo": todo})
 
 
-    def delete_todo_get(request, pk):
-        todo = get_object_or_404(TodoList,id=pk)
-        return render(request, 'delete_todo.html', {'todo': todo})
-    def delete_todo_post(self,request,*args,**kwargs):
-        todo = get_object_or_404(TodoList, id=kwargs)
+    def post(self,*args,**kwargs):
+        todo = get_object_or_404(TodoList,id=kwargs['pk'])
         todo.delete()
         return redirect('home')
+
+    def get_template_names(self,**kwargs):
+        return "delete_todo.html"
+
+
 
 class TodoDetailView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -73,4 +77,4 @@ class TodoDetailView(TemplateView):
         context["todo"] = get_object_or_404(TodoList, id=kwargs['pk'])
         return context
     def get_template_names(self):
-        return "detail_todo"
+        return "detail_todo.html"

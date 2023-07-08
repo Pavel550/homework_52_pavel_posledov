@@ -10,5 +10,6 @@
     <h6>Дата изменения:{{ todo.updated_at | date:"Y-m-d" }}</h6>
     <a href="{% url "delete_todo" todo.pk %}"><button>Удалить</button></a>
     <a href="{% url "home" %}" class="card-link"><button>На Главную</button></a>
+    <a href="{% url "todo_update" todo.pk %}"><button>Редактирование</button></a><br/>
 
 {% endblock %}

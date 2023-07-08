@@ -30,7 +30,7 @@ class TodoList(models.Model):
 
     def __str__(self):
 
-        return f'{self.pk} {self.title}'
+        return f'{self.pk} {self.title} {self.status} {self.type_todo} {self.short_description} {self.description}'
 
     class Meta:
         db_table = 'todolist'

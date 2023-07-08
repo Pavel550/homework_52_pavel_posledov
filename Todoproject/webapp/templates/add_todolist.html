@@ -1,8 +1,8 @@
 {% extends "base_html.html" %}
 {% block title %}Создание{% endblock %}
 
-<h1 class="border border-2 bg-success">Добавление очередной задачи</h1>
 {% block content %}
+    <h1>Добавление очередной задачи</h1>
     {% include "partial/todo_form.html" with button_text="Создать" %}
-    <a href="{% url "home" %}"><button>Назад</button></a>
+    <a href="{% url "home" %}"><button>На Главную</button></a>
 {% endblock %}
