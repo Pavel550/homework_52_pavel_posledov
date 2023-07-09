@@ -5,7 +5,7 @@ from .models import TodoList
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'status', 'type_todo', 'created_date', ]
+    list_display = ['id', 'title', 'status', 'created_date', ]
     list_display_links = ['id', 'title']
     list_filter = ['status', 'type_todo']
     search_fields = ['title', 'status', 'type_todo']
