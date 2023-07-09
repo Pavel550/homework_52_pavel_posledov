@@ -3,7 +3,7 @@
 {% block content %}
     <h3 class="card-title">Название:{{ todo.title }}</h3>
     <h6>Статус:{{ todo.status.title }}</h6>
-    <h6>Тип:{{ todo.type_todo.title }}</h6>
+    <h6>Тип: {%for type_todo in todo.type_todo.all %}{{type_todo.title}}{%if not forloop.last%}, {%endif %}{%endfor%}</h6>
     <p class="card-text">Заголовок:{{ todo.short_description }}</p>
     <p class="card-text">Описание:{{ todo.description }}</p>
     <h6>Дата создания:{{ todo.created_date | date:"Y-m-d" }}</h6>

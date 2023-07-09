@@ -9,7 +9,7 @@
 {% for todo in todos %}
     <h2>Название:{{ todo.title }}</h2>
     <h6>Статус:{{ todo.status.title }}</h6>
-    <h6>Тип:{{ todo.type_todo.title }}</h6>
+    <h6>Тип: {%for type_todo in todo.type_todo.all %}{{type_todo.title}}{%if not forloop.last%}, {%endif %}{%endfor%}</h6>
     <p>Заголовок:{{todo.short_description}}</p>
     <p>Детальное описание:{{ todo.description }}</p>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date | date:"d-F-y" }}</h6>
