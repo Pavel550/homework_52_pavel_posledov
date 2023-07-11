@@ -1,0 +1,3 @@
+ TodoList.objects.filter(updated_at__gt=timezone.now() - timedelta(days=30), status='3')
+<QuerySet [<TodoList: 2 Сходить в кино выполнено webapp.TypeTodo.None Заголовок необходимо сходить в кино посмотреть новый фильм который вышел в кинотеатре>, <TodoList: 3 свсчсьвдыьвспривет444545343343 выполнено webapp.TypeTodo.None Заголовок выполнить домашнее задание по учебе>, <TodoList: 5 уборка в доме34343435 выполнено webapp.TypeTodo.None 68687876786786 вапоавлпавдлпвадлпвадлповалдо>, <TodoList: 9 Посидеть за компьютером333 выполнено webapp.TypeTodo.None Работа за компьютером по заниматься пару часов за компьютером>]>
+
