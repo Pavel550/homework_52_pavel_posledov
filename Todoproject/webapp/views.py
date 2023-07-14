@@ -13,12 +13,12 @@ class TodoListWiew(TemplateView):
 
         todos = TodoList.objects.order_by("-created_date")
         context = {"todos": todos}
-        return render(request, 'todo_list.html', context)
+        return render(request, 'TODO/todo_list.html', context)
 
 class TodoCreateView(FormView):
     success_url = reverse_lazy("home")
     form_class = TodoForm
-    template_name = "add_todolist.html"
+    template_name = "TODO/add_todolist.html"
 
     def form_valid(self, form):
         type_todo = form.cleaned_data.pop("type_todo")
@@ -33,7 +33,7 @@ class TodoCreateView(FormView):
 
 class TodoUpdateView(FormView):
     form_class = TodoForm
-    template_name = "update_todo.html"
+    template_name = "TODO/update_todo.html"
     def dispatch(self, request, *args, **kwargs):
         self.todo = self.get_object(kwargs.get("pk"))
         return super().dispatch(request, *args, **kwargs)
@@ -76,7 +76,7 @@ class TodoUpdateView(FormView):
 class TodoDeleteView(TemplateView):
     def get(self, request, *args, **kwargs):
         todo = get_object_or_404(TodoList, id=kwargs['pk'])
-        return render(request, "delete_todo.html", {"todo": todo})
+        return render(request, "TODO/delete_todo.html", {"todo": todo})
 
 
     def post(self,*args,**kwargs):

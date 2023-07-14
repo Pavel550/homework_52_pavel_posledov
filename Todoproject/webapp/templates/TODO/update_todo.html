@@ -1,7 +1,7 @@
-{% extends "base_html.html" %}
+{% extends "TODO/../base_html.html" %}
 {% block title %}Редактирование задачи{% endblock %}
 <h1>Редактирование</h1>
 {% block content %}
-    {% include "partial/todo_form.html" with button_text="Редактировать" %}
+    {% include "partial/form.html" with button_text="Редактировать" %}
     <a href="{% url 'home'  %}"><button>На Главную</button></a>
 {% endblock %}
