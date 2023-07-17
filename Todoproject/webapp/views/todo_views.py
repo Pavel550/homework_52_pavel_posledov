@@ -1,24 +1,37 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy
 
-from .models import TodoList
-from .forms import TodoForm
+from webapp.models import TodoList
+from webapp.forms import TodoForm
 from django.http import HttpResponseRedirect,Http404
-from django.views.generic import TemplateView, View, FormView
+from django.views.generic import TemplateView, View, FormView, ListView, CreateView
 
 
 # Create your views here.
-class TodoListWiew(TemplateView):
-    def get(self, request, *args, **kwargs):
+class TodoListView(ListView):
+    model = TodoList
+    template_name = 'TODO/todo_list.html'
+    context_object_name = 'todos'
+    ordering = '-created_date'
 
-        todos = TodoList.objects.order_by("-created_date")
-        context = {"todos": todos}
-        return render(request, 'TODO/todo_list.html', context)
 
-class TodoCreateView(FormView):
-    success_url = reverse_lazy("home")
+    # def get(self, request, *args, **kwargs):
+    #
+    #     todos = TodoList.objects.order_by("-created_date")
+    #     context = {"todos": todos}
+    #     return render(request, 'TODO/todo_list.html', context)
+
+class TodoCreateView(CreateView):
+    template_name= 'TODO/add_todolist.html'
+    model = TodoList
     form_class = TodoForm
-    template_name = "TODO/add_todolist.html"
+
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+
 
     def form_valid(self, form):
         type_todo = form.cleaned_data.pop("type_todo")

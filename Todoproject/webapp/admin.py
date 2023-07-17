@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TodoList
+from .models import TodoList,Project
 # Register your models here.
 #
 
@@ -15,3 +15,4 @@ class TodoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TodoList, TodoAdmin)
+admin.site.register(Project)

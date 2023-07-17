@@ -40,7 +40,18 @@ class Project(models.Model):
     project_title = models.CharField(max_length=60, null=False, blank=False, verbose_name='Название')
     project_description = models.TextField(max_length=200, null=True, blank=True, verbose_name='Описание')
     project_created_date =models.DateField(verbose_name='Дата начала')
-    project_finish_date = models.DateField(null=True, verbose_name='Дата окончания')
+    project_finish_date = models.DateField(null=True, blank=True, verbose_name='Дата окончания')
+
+
+
+    def __str__(self):
+        return f'{self.pk} {self.project_title} {self.project_description} {self.project_created_date} {self.project_finish_date}'
+
+
+    class Meta:
+        db_table = 'project'
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
 
 
 
