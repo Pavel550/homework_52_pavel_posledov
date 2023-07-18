@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy
 
-from webapp.models import TodoList
+from webapp.models import TodoList, Project
 from webapp.forms import TodoForm
 from django.http import HttpResponseRedirect,Http404
 from django.views.generic import TemplateView, View, FormView, ListView, CreateView
@@ -10,7 +10,7 @@ from django.views.generic import TemplateView, View, FormView, ListView, CreateV
 # Create your views here.
 class TodoListView(ListView):
     model = TodoList
-    template_name = 'TODO/todo_list.html'
+    template_name = 'todo/todo_list.html'
     context_object_name = 'todos'
     ordering = '-created_date'
 
@@ -19,34 +19,33 @@ class TodoListView(ListView):
     #
     #     todos = TodoList.objects.order_by("-created_date")
     #     context = {"todos": todos}
-    #     return render(request, 'TODO/todo_list.html', context)
+    #     return render(request, 'todo/todo_list.html', context)
 
 class TodoCreateView(CreateView):
-    template_name= 'TODO/add_todolist.html'
+    template_name= 'todo/add_todolist.html'
     model = TodoList
     form_class = TodoForm
 
-
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('detail_project')
 
 
 
 
-    def form_valid(self, form):
-        type_todo = form.cleaned_data.pop("type_todo")
-        todo = TodoList.objects.create(
-            title=form.cleaned_data.get('title'),
-            status=form.cleaned_data.get('status'),
-            short_description=form.cleaned_data.get('short_description'),
-            description=form.cleaned_data.get('description'), )
-        todo.type_todo.set(type_todo)
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     type_todo = form.cleaned_data.pop("type_todo")
+    #     todo = TodoList.objects.create(
+    #         title=form.cleaned_data.get('title'),
+    #         status=form.cleaned_data.get('status'),
+    #         short_description=form.cleaned_data.get('short_description'),
+    #         description=form.cleaned_data.get('description'), )
+    #     todo.type_todo.set(type_todo)
+    #     return super().form_valid(form)
 
 
 class TodoUpdateView(FormView):
     form_class = TodoForm
-    template_name = "TODO/update_todo.html"
+    template_name = "todo/update_todo.html"
     def dispatch(self, request, *args, **kwargs):
         self.todo = self.get_object(kwargs.get("pk"))
         return super().dispatch(request, *args, **kwargs)
@@ -74,22 +73,10 @@ class TodoUpdateView(FormView):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 class TodoDeleteView(TemplateView):
     def get(self, request, *args, **kwargs):
         todo = get_object_or_404(TodoList, id=kwargs['pk'])
-        return render(request, "TODO/delete_todo.html", {"todo": todo})
+        return render(request, "todo/delete_todo.html", {"todo": todo})
 
 
     def post(self,*args,**kwargs):

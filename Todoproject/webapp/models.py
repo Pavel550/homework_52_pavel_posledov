@@ -18,7 +18,7 @@ class TodoList(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name='Название')
     status = models.ForeignKey("webapp.StatusTodo", on_delete=models.PROTECT, related_name='статус', null=False, blank=False)
     type_todo = models.ManyToManyField("webapp.TypeTodo", related_name='тип', blank=True)
-    project = models.ForeignKey("webapp.Project", related_name='Проект', on_delete=models.PROTECT, null=False, blank=True)
+    project = models.ForeignKey("webapp.Project", related_name='tasks', on_delete=models.CASCADE, null=False, blank=True)
     short_description = models.TextField(max_length=50, null=False,default='Заголовок', blank=False, verbose_name='Краткое описание')
     description = models.TextField(max_length=200, null=True, blank=True, verbose_name='Полное описание')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')

@@ -1,17 +1,17 @@
 from django.db.models import Q
 from django.shortcuts import render,redirect,get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.html import urlencode
 
 from webapp.models import Project
 from webapp.forms import TodoForm, SearchForm, ProjectForm
 from django.http import HttpResponseRedirect,Http404
-from django.views.generic import TemplateView, View, FormView, ListView, CreateView
+from django.views.generic import TemplateView, View, FormView, ListView, CreateView, DetailView, DeleteView, UpdateView
 
 
 # Create your views here.
 class ProjectListView(ListView):
-    template_name = 'PROJECT/project_list.html'
+    template_name = 'project/project_list.html'
     context_object_name = 'projects'
     paginate_by = 5
     paginate_orphans = 1
@@ -41,28 +41,66 @@ class ProjectListView(ListView):
             return None
 
     def get_queryset(self):
-        # return Project.objects.all().order_by('-project_created_date')
         queryset = super().get_queryset()
         if self.search_value:
             queryset = queryset.filter(Q(project_title__icontains=self.search_value) |
-                                       Q(todo_title__icontains=self.search_value))
+                                       Q(project_description__icontains=self.search_value))
 
         return queryset
 class ProjectCreateView(CreateView):
-    template_name= 'PROJECT/create_project.html'
+    template_name= 'project/create_project.html'
     model = Project
     form_class = ProjectForm
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = "project/detail_project.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["project"] = self.object
+        for i in self.object.tasks.all():
+            print(i, i.created_date)
+        return context
+
+class ProjectDeleteView(DeleteView):
+
+    template_name ='project/delete_project.html'
+
+    model = Project
+
+    context_object_name ='project'
+
+    success_url = reverse_lazy('home')
+
+class ProjectUpdateView(UpdateView):
+
+    model = Project
+
+    template_name ='project/update_project.html'
+
+    form_class = ProjectForm
+
+    context_object_name ='project'
 
 
     def get_success_url(self):
-        return reverse_lazy('home')
+
+        return reverse('detail_project',kwargs={'pk':self.object.pk})
+
+
+
+
 
 
 #
 #
 # class TodoUpdateView(FormView):
 #     form_class = TodoForm
-#     template_name = "TODO/update_todo.html"
+#     template_name = "todo/update_todo.html"
 #     def dispatch(self, request, *args, **kwargs):
 #         self.todo = self.get_object(kwargs.get("pk"))
 #         return super().dispatch(request, *args, **kwargs)
@@ -93,7 +131,7 @@ class ProjectCreateView(CreateView):
 # class TodoDeleteView(TemplateView):
 #     def get(self, request, *args, **kwargs):
 #         todo = get_object_or_404(TodoList, id=kwargs['pk'])
-#         return render(request, "TODO/delete_todo.html", {"todo": todo})
+#         return render(request, "todo/delete_todo.html", {"todo": todo})
 #
 #
 #     def post(self,*args,**kwargs):
