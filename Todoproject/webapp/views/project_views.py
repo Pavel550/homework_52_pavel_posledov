@@ -51,12 +51,22 @@ class ProjectCreateView(CreateView):
     template_name= 'project/create_project.html'
     model = Project
     form_class = ProjectForm
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
     def get_success_url(self):
         return reverse_lazy('webapp:home')
 
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "project/detail_project.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
 
 
     def get_context_data(self, **kwargs):
@@ -76,6 +86,11 @@ class ProjectDeleteView(DeleteView):
 
     success_url = reverse_lazy('webapp:home')
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
+
 class ProjectUpdateView(UpdateView):
 
     model = Project
@@ -85,6 +100,11 @@ class ProjectUpdateView(UpdateView):
     form_class = ProjectForm
 
     context_object_name ='project'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
 
 
     def get_success_url(self):

@@ -21,6 +21,11 @@ class TodoCreateView(CreateView):
     model = TodoList
     form_class = TodoForm
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
+
     def get_success_url(self):
         return reverse_lazy('webapp:detail_project')
 
@@ -38,6 +43,11 @@ class TodoUpdateView(UpdateView):
 
     context_object_name ='todo'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
+
 
     def get_success_url(self):
 
@@ -52,6 +62,11 @@ class TodoUpdateView(UpdateView):
 class TodoDeleteView(DeleteView):
 
     model = TodoList
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
 
 
     def get(self, request, *args, **kwargs):
@@ -70,6 +85,11 @@ class TodoDeleteView(DeleteView):
 class TodoDetailView(DetailView):
     model = TodoList
     template_name = "todo/detail_todo.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
 
 
     def get_context_data(self, **kwargs):
