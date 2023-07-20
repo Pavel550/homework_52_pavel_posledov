@@ -6,6 +6,8 @@ from webapp.views.todo_views import \
 from webapp.views.project_views import ProjectListView, ProjectCreateView, ProjectDetailView, ProjectDeleteView, \
     ProjectUpdateView
 
+app_name = "webapp"
+
 urlpatterns = [
     path('', ProjectListView.as_view(), name='home'),
     path('project/create/' , ProjectCreateView.as_view(), name= 'create_project'),

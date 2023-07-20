@@ -27,6 +27,6 @@ class ProjectTasksCreateView(CreateView):
 
         # также pk можно получить, как self.kwargs.get('pk')
 
-        return reverse('detail_project',kwargs={'pk':self.object.project.pk})
+        return reverse('webapp:detail_project',kwargs={'pk':self.object.project.pk})
 
 

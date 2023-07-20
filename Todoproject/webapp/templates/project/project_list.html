@@ -18,14 +18,28 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "create_project" %}"><button>Создать новый проект</button></a>
+                        <a class="nav-link" href="{% url "webapp:create_project" %}"><button>Создать новый проект</button></a>
                     </li>
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:logout" %}"><button>Выход</button></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "webapp:create_project" %}"><button>Регистрация</button></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:login" %}"><button>Вход</button></a>
+                    </li>
+                    {% endif %}
 
                     </ul>
 
             </div>
         </div>
     </nav>
+
+    {{ request.user }}
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for project in projects %}
   <div class="col">
@@ -38,9 +52,9 @@
 
       </div>
       <div class="card-footer">
-        <a href="{% url "detail_project" project.pk %}"><button>Детальный просмотр</button></a>
-          <a href="{% url "project_update" project.pk %}"><button>Редактировать проект</button></a>
-          <a href="{% url "delete_project" project.pk %}"><button>Удалить проект</button></a>
+        <a href="{% url "webapp:detail_project" project.pk %}"><button>Детальный просмотр</button></a>
+          <a href="{% url "webapp:project_update" project.pk %}"><button>Редактировать проект</button></a>
+          <a href="{% url "webapp:delete_project" project.pk %}"><button>Удалить проект</button></a>
       </div>
     </div>
   </div>

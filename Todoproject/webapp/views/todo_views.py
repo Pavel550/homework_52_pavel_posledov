@@ -22,7 +22,7 @@ class TodoCreateView(CreateView):
     form_class = TodoForm
 
     def get_success_url(self):
-        return reverse_lazy('detail_project')
+        return reverse_lazy('webapp:detail_project')
 
 
 
@@ -41,7 +41,7 @@ class TodoUpdateView(UpdateView):
 
     def get_success_url(self):
 
-        return reverse('detail_project',kwargs={'pk':self.object.project.pk})
+        return reverse('webapp:detail_project',kwargs={'pk':self.object.project.pk})
 
 
 
@@ -61,7 +61,7 @@ class TodoDeleteView(DeleteView):
 
     def get_success_url(self):
 
-        return reverse('detail_project',kwargs={'pk':self.object.project.pk})
+        return reverse('webapp:detail_project',kwargs={'pk':self.object.project.pk})
 
 
 

@@ -4,5 +4,5 @@
 {% block content %}
     <h1>Добавление очередной задачи</h1>
     {% include "partial/form.html" with button_text="Создать" %}
-    <a href="{% url "home" %}"><button>На Главную</button></a>
+    <a href="{% url "webapp:home" %}"><button>На Главную</button></a>
 {% endblock %}
