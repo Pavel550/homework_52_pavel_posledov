@@ -92,6 +92,90 @@
   }
 },
 {
+  "model": "webapp.todolist",
+  "pk": 7,
+  "fields": {
+    "title": "fdfhsdjkfh2374239423942389",
+    "status": 1,
+    "project": 2,
+    "short_description": "34234rewrfwe",
+    "description": "fgghgfdvdfvsdvnsd.,msd.,fmsd,.ncsdcnd.cncbdm,cbsdm,cbsdm,bcsdm,cbsd,bcsdm,bcv,sdmbvsdm,bv,dmsbvsdm,bvsdbvm,s",
+    "created_date": "2023-07-20T17:08:03.616Z",
+    "updated_at": "2023-07-20T17:08:03.616Z",
+    "type_todo": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 8,
+  "fields": {
+    "title": "mdhkdsdh777797979797",
+    "status": 3,
+    "project": 2,
+    "short_description": "fsdjflkjlkjdkljkl666666",
+    "description": "jhsghgfvsdvcmsdcmd,.cd.ncvsd,.vnsdvnsd.vnsdvnsd.vnm,fsM,EJFEJFEJFEJfe",
+    "created_date": "2023-07-20T17:08:36.317Z",
+    "updated_at": "2023-07-20T17:08:36.318Z",
+    "type_todo": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 9,
+  "fields": {
+    "title": "mdjcdjdhekwe88898080908",
+    "status": 2,
+    "project": 2,
+    "short_description": "45345356567",
+    "description": "fsdfsdndbcdncdbca,bcasmcbasxsjxdaslddkwdqwdn/lscn.ascnas.cnasd.cbad.cn.adnc.adnc.adnc.kadbncv.adbvc.adbvadm.bcvadm,cbvmadbcv.madbcvm.adbcvm.adbvcm.adbvm.abcvm.adbvcm.adbvm.adbv.admbv.amdbv.amdbv.amdbv",
+    "created_date": "2023-07-20T17:09:30.749Z",
+    "updated_at": "2023-07-20T17:09:30.749Z",
+    "type_todo": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 10,
+  "fields": {
+    "title": "fehfklwehflwe33e2e323er",
+    "status": 1,
+    "project": 3,
+    "short_description": "ewe22312",
+    "description": "daefefsdfsdfcsdcds",
+    "created_date": "2023-07-20T17:10:24.836Z",
+    "updated_at": "2023-07-20T17:10:24.836Z",
+    "type_todo": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.todolist",
+  "pk": 11,
+  "fields": {
+    "title": "khfklhflkehfklehflkwehflwehflewhflwehfleh322",
+    "status": 1,
+    "project": 6,
+    "short_description": "fgsergsethgstrhstrhstrhstr",
+    "description": "cvkfhkjbsdvndbcdk.cn.adbcvsd,cbvd,cvb,djbcvj,dcbvj,dbvc,djcbv,djvcdj,cv,djCV<DJCVDJ<CVdj,CV<DJVC<DJv,jdbcv.adBV.adbv.cdbk.vbd>BVsd.M",
+    "created_date": "2023-07-20T17:11:42.683Z",
+    "updated_at": "2023-07-20T17:11:42.683Z",
+    "type_todo": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
   "model": "webapp.project",
   "pk": 2,
   "fields": {
@@ -158,6 +242,16 @@
     "project_title": "прапттртрвтрп",
     "project_description": "ртрптрптвпртрвптвпртпртвпрт",
     "project_created_date": "2023-07-19",
+    "project_finish_date": null
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 9,
+  "fields": {
+    "project_title": "e3e7387888880800ioiowdabd",
+    "project_description": "asddfdscdcdschdhcdabcjasdbcjsabxcjsabcjsabxcjsabxcjsbgxsjadgwudt37e623786e837e62378e63176e2936e9236er3926r92376r79236r79236r97236r79236r79236r97236r79236r7962379",
+    "project_created_date": "2023-07-20",
     "project_finish_date": null
   }
 }

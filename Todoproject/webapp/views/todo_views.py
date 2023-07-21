@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy, reverse
 
@@ -16,15 +17,12 @@ class TodoListView(ListView):
 
 
 
-class TodoCreateView(CreateView):
+class TodoCreateView(LoginRequiredMixin, CreateView):
     template_name= 'todo/add_todolist.html'
     model = TodoList
     form_class = TodoForm
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
     def get_success_url(self):
         return reverse_lazy('webapp:detail_project')
@@ -33,7 +31,7 @@ class TodoCreateView(CreateView):
 
 
 
-class TodoUpdateView(UpdateView):
+class TodoUpdateView(LoginRequiredMixin, UpdateView):
 
     model = TodoList
 
@@ -43,10 +41,7 @@ class TodoUpdateView(UpdateView):
 
     context_object_name ='todo'
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
 
     def get_success_url(self):
@@ -59,14 +54,11 @@ class TodoUpdateView(UpdateView):
 
 
 
-class TodoDeleteView(DeleteView):
+class TodoDeleteView(LoginRequiredMixin, DeleteView):
 
     model = TodoList
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
 
     def get(self, request, *args, **kwargs):
@@ -82,14 +74,11 @@ class TodoDeleteView(DeleteView):
 
 
 
-class TodoDetailView(DetailView):
+class TodoDetailView( DetailView):
     model = TodoList
     template_name = "todo/detail_todo.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
 
     def get_context_data(self, **kwargs):

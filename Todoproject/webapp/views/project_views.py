@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -47,26 +48,20 @@ class ProjectListView(ListView):
                                        Q(project_description__icontains=self.search_value))
 
         return queryset
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name= 'project/create_project.html'
     model = Project
     form_class = ProjectForm
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
     def get_success_url(self):
         return reverse_lazy('webapp:home')
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView( DetailView):
     model = Project
     template_name = "project/detail_project.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
 
     def get_context_data(self, **kwargs):
@@ -76,7 +71,7 @@ class ProjectDetailView(DetailView):
             print(i, i.created_date)
         return context
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 
     template_name ='project/delete_project.html'
 
@@ -86,12 +81,9 @@ class ProjectDeleteView(DeleteView):
 
     success_url = reverse_lazy('webapp:home')
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
 
-class ProjectUpdateView(UpdateView):
+
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Project
 
@@ -101,10 +93,7 @@ class ProjectUpdateView(UpdateView):
 
     context_object_name ='project'
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+
 
 
     def get_success_url(self):

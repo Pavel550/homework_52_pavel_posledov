@@ -42,7 +42,7 @@
         </div>
     </nav>
 
-    {{ request.user }}
+
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for project in projects %}
   <div class="col">
@@ -59,6 +59,8 @@
         <a href="{% url "webapp:detail_project" project.pk %}"><button>Детальный просмотр</button></a>
           <a href="{% url "webapp:project_update" project.pk %}"><button>Редактировать проект</button></a>
           <a href="{% url "webapp:delete_project" project.pk %}"><button>Удалить проект</button></a>
+              {% else %}
+             <a href="{% url "webapp:detail_project" project.pk %}"><button>Детальный просмотр</button></a>
           {% endif %}
       </div>
     </div>

@@ -1,6 +1,7 @@
 {% extends "base_html.html" %}
 {% block title %}Детальный обзор{% endblock %}
 {% block content %}
+
     <h3 class="card-title">Название:{{ tasks.title }}</h3>
     <h6>Статус:{{ tasks.status.title }}</h6>
     <h6>Тип: {%for type_todo in tasks.type_todo.all %}{{type_todo.title}}{%if not forloop.last%}, {%endif %}{%endfor%}</h6>
@@ -8,8 +9,13 @@
     <p class="card-text">Описание:{{ tasks.description }}</p>
     <h6>Дата создания:{{ tasks.created_date | date:"Y-m-d" }}</h6>
     <h6>Дата изменения:{{ tasks.updated_at | date:"Y-m-d" }}</h6>
+ {% if request.user.is_authenticated %}
     <a href="{% url "webapp:delete_todo" tasks.pk %}"><button>Удалить</button></a>
     <a href="{% url "webapp:detail_project" tasks.pk %}" class="card-link"><button>На Главную</button></a>
     <a href="{% url "webapp:todo_update" tasks.pk %}"><button>Редактирование</button></a><br/>
+    {% else %}
+        <a href="{% url "webapp:home" %}" class="card-link"><button>На Главную</button></a>
+    {% endif %}
+
 
 {% endblock %}
