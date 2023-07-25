@@ -29,10 +29,10 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><button>Регистрация</button></a>
+                        <a class="nav-link" href="{% url "accounts:create" %}?next={{ request.path }}"><button>Регистрация</button></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url "accounts:login" %}"><button>Вход</button></a>
+                        <a class="nav-link" href="{% url "accounts:login" %}?next={{ request.path }}"><button>Вход</button></a>
                     </li>
                     {% endif %}
 
