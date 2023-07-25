@@ -6,6 +6,7 @@ class ProjectUserCreationForm(forms.ModelForm):
     password = forms.CharField(label="Пароль", strip=False, required=True, widget=forms.PasswordInput)
     password_confirm = forms.CharField(label="Подтвердите пароль", required=True, widget=forms.PasswordInput, strip=False)
     first_name = forms.CharField(label="Фамилия",required=False, strip=False)
+    last_name = forms.CharField(label="Имя", required=False, strip=False)
     email = forms.EmailField(max_length=100, required=True)
 
 
