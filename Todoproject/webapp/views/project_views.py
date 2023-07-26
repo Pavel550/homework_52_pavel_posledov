@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.html import urlencode
 
+from accounts.forms import ProjectUserCreationForm
 from webapp.models import Project
 from webapp.forms import TodoForm, SearchForm, ProjectForm
 from django.http import HttpResponseRedirect,Http404
@@ -100,8 +102,21 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
         return reverse('webapp:detail_project',kwargs={'pk':self.object.pk})
 
+class AddUserProjectView(View):
+    def get(self, request, pk):
+        project = get_object_or_404(Project, pk=pk)
+        form = ProjectUserCreationForm()
+        return render(request, 'add_user_to_project.html', {'project': project, 'form': form})
 
-
+    def post(self, request, pk):
+        project = get_object_or_404(Project, pk=pk)
+        form = ProjectUserCreationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            user = get_object_or_404(User, username=username)
+            project.User_project_name.add(user)
+            return redirect('webapp:detail_project', pk=pk)
+        return render(request, 'add_user_to_project.html', {'project': project, 'form': form})
 
 
 

@@ -32,6 +32,9 @@
                         <a class="nav-link" href="{% url "accounts:create" %}?next={{ request.path }}"><button>Регистрация</button></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:add_user" %}?next={{ request.path }}"><button>Добавление нового пользователя</button></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url "accounts:login" %}?next={{ request.path }}"><button>Вход</button></a>
                     </li>
                     {% endif %}
@@ -52,6 +55,9 @@
         <p class="card-text">Описание:{{ project.project_description }}</p>
           <p>Дата начала:{{ project.project_created_data | date:"d-F-y" }}</p>
           <p>Дата окончания:{{ project.project_finish_data | date:"d-F-y"}}</p>
+          {% for user in project.User_project_name.all %}
+              <p class="card-text">User:{{ user.username }}</p>
+              {% endfor %}
 
       </div>
       <div class="card-footer">

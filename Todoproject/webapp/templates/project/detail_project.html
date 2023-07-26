@@ -1,14 +1,18 @@
 {% extends "base_html.html" %}
 {% load static %}
 {% block content %}
-
 <h1>Название Проекта:{{ project.project_title }}</h1>
+   {% for user in project.User_project_name.all %}
+        <p class="card-text">User:{{ user.username }}</p>
+    {% endfor %}
 {% if request.user.is_authenticated %}
     <a href="{% url "webapp:add_todo" project.pk %}"><button>Создать новую задачу</button></a>
     <a href="{% url "webapp:delete_project" project.pk %}"><button>Удалить проект</button></a>
     <a href="{% url "webapp:project_update" project.pk %}"><button>Редактировать проект</button></a>
 {% else %}
-
+   {% for user in project.user.all %}
+        <p> class="card-text">User:{{ users }}</p>
+    {% endfor %}
     {% endif %}
     <a href="{% url "webapp:home"  %}"><button>Назад</button></a>
 <br>
@@ -20,6 +24,7 @@
     <p>Детальное описание:{{ todo.description }}</p>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата создания:{{ todo.created_date }}</h6>
     <h6 class="card-subtitle mb-2 text-body-secondary">Дата изменениия:{{ todo.updated_at }}</h6>
+
     <a href="{% url "webapp:detail_todo" todo.pk %}"><button>Детальный Обзор</button></a><br/>
     <a href="{% url "webapp:home" %}"><button>К проектам</button></a>
     <br/>

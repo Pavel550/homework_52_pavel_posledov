@@ -1,0 +1,8 @@
+{% extends "base_html.html" %}
+{% block title %}Добавление пользователей{% endblock %}
+
+{% block content %}
+    <h1>Добавление нового Юзера</h1>
+    {% include "partial/form.html" with button_text="Добавить" %}
+    <a href="{% url "webapp:home" %}"><button>На Главную</button></a>
+{% endblock %}
